@@ -152,6 +152,11 @@ public final class MasukArsip extends javax.swing.JFrame {
         });
 
         jPasswordField.setText("jPasswordField1");
+        jPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPasswordFieldMouseClicked(evt);
+            }
+        });
 
         jLabel_username.setText("USERNAME");
 
@@ -264,35 +269,6 @@ public final class MasukArsip extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldUsernameActionPerformed
 
     private void jButton_masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_masukActionPerformed
-
-//        koneksi k = new koneksi();
-//        com.kategori.barang.kategoribarangform kbk = new kategoribarangform();
-//        try {
-//            k.getkoneksi();
-//            JOCptionPane.showMessageDialog(this, "koneksi berhasil");
-//            kbk.setVisible(true);
-//
-//        } catch (Exception e) {
-//            k.getkoneksi();
-//        }
-//        if (getString_password().equals("hr") && getString_url().equals("localhost") && getString_username().equals("hr")) {
-//            kbk.setVisible(true);
-//        } else {
-//            JOptionPane.showMessageDialog(kbk, k);
-//        }
-//        com.kategori.barang.kategoribarangform kbk = new kategoribarangform();
-//        Connection conn = null;
-//        try {
-//            OracleDataSource ds;
-//            ds = new OracleDataSource();
-//            ds.setURL(getString_url());
-//            conn = ds.getConnection(getString_username(), getString_password());
-//            JOptionPane.showMessageDialog(this, "koneksi berhasil");
-//            kbk.setVisible(true);
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "error pada " + e.getMessage());
-//            kbk.setVisible(false);
-//        }
         String userName = jTextFieldUsername.getText();
         String Paswd = jPasswordField.getText();
         String url = jTextFieldURL.getText();
@@ -307,7 +283,7 @@ public final class MasukArsip extends javax.swing.JFrame {
 //                koneksi conn = new koneksi();
 //                koneksi k=new koneksi();
 //                conn.getKoneksi(userName, Paswd, url);
-                com.koneksi.koneksi.getkoneksi("jdbc:Oracle:thin:@"+url+":1521:xe", userName, Paswd);
+                com.koneksi.koneksi.getkoneksi( userName, Paswd, url);
                 System.out.println("Login Masuk berhasil");
 
 //                kategoribarangform kategori = new kategoribarangform();
@@ -338,6 +314,10 @@ public final class MasukArsip extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton_keluarActionPerformed
+
+    private void jPasswordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPasswordFieldMouseClicked
+        jPasswordField.setText("");
+    }//GEN-LAST:event_jPasswordFieldMouseClicked
 
     /**
      * @param args the command line arguments

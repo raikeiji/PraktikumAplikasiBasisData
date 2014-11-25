@@ -15,7 +15,7 @@ import com.barang.barang;
 public class KartuStock {
     private barang kodeBarang;
     private String tanggal, noBukti, keterangan;
-    private Double masuk, keluar, saldo;
+    private int masuk, keluar, saldo;
 
     public KartuStock() {
     }
@@ -52,27 +52,27 @@ public class KartuStock {
         this.keterangan = keterangan;
     }
 
-    public Double getMasuk() {
+    public int getMasuk() {
         return masuk;
     }
 
-    public void setMasuk(Double masuk) {
+    public void setMasuk(int masuk) {
         this.masuk = masuk;
     }
 
-    public Double getKeluar() {
+    public int getKeluar() {
         return keluar;
     }
 
-    public void setKeluar(Double keluar) {
+    public void setKeluar(int keluar) {
         this.keluar = keluar;
     }
 
-    public Double getSaldo() {
+    public int getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(Double saldo) {
+    public void setSaldo(int saldo) {
         this.saldo = saldo;
     }
     

@@ -50,7 +50,7 @@ public class daftarmenuArsip extends javax.swing.JFrame {
         initComponents();
         tampilkategori();
         tampilanAwal();
-        setDesign();
+//        setDesign();
         LihatDaftarBarangpadaTabel();
     }
 
@@ -1463,19 +1463,12 @@ public class daftarmenuArsip extends javax.swing.JFrame {
 
         String kodebarang = jTableJInternalFrame.getValueAt(baris, 0).toString();
         String namabarang = jTableJInternalFrame.getValueAt(baris, 1).toString();
-//        String kategori=jTableJInternalFrame.getValueAt(baris, 2).toString();
         String ritelsesudah = jTableJInternalFrame.getValueAt(baris, 3).toString();
 
         jTextFieldKodeBarang.setText(kodebarang);
         jTextFieldNamaBarang.setText(namabarang);
         jTextFieldRitelSetelah.setText(ritelsesudah);
-//        kategoribarang kabar = new kategoribarang();
 
-//        int i = jComboBoxKategoriBarang.getSelectedIndex();
-//        String kodekategori = jComboBoxKategoriBarang.getItemAt(i).toString();
-//        String[] temp = kodekategori.split(" ");
-//        kabar.setKode_kategori(temp[0]);
-//        kabar.setNama_kategori(temp[1]);
         List<barang> listKategori = null;
         try {
             listKategori = BarangKontrol.getKoneksi().lihatKategori();
@@ -1554,45 +1547,17 @@ public class daftarmenuArsip extends javax.swing.JFrame {
 
     private void jButtonCetakFrameCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCetakFrameCetakActionPerformed
         Connection kon = null;
-//        String reportSource = "";
-//        
-//        String KolomAwal = jTextFieldAwalCetakFrame.getText();
-//        String KolomAkhir = jTextFieldAkhirCetakFrame.getText();
         kon = new com.koneksi.koneksi().getkoneksi2();
-////        kon=(Connection) new kategoribarangkontrol(com.koneksi.koneksi.getkoneksi("hr", "hr", "jdbc:Oracle:thin:@localhost:1521:xe"));
-//        if (jCheckBoxCetakFrame.isSelected()) {
-//            reportSource = "./aaa/BarangBD.jasper";
-//        } else {
-//            reportSource = "./aaa/LaporanCetakBarangdenganParameter.jasper";
-//        }
-////        Map<String, Object> params = new HashMap<String, Object>();
-//        Map<String, Object> params=new HashMap<String, Object>();
-//        params.put("kodeawal", KolomAwal);
-//        params.put("kodeakhir", KolomAkhir);
-//
-//        try {
-//            
-////            File file=new File(reportSource);
-////            InputStream inputstream=new FileInputStream(file);
-////            JasperPrint jasperprint=JasperFillManager.fillReport(inputstream, params, kon);
-//            JasperPrint jasperprint = JasperFillManager.fillReport(reportSource, params, kon);
-//            JasperViewer.viewReport(jasperprint, false);
-//
-//        } catch (JRException ex) {
-//            ex.printStackTrace();
-//        }
-//        Connection kon = null;
         String reportSource = "";
 
         String kowal = jTextFieldAwalCetakFrame.getText();
         String kohir = jTextFieldAkhirCetakFrame.getText();
-//        kon = new com.koneksi.koneksi().getClass
 
         if (jCheckBoxCetakFrame.isSelected()) {
-            reportSource = "./aaa/BarangBD.jasper";
+            reportSource = "./src/com/barang/DaftarMenuArsip.jasper";
         } else {
 
-            reportSource = "./aaa/LaporanCetakBarangdenganParameter.jasper";
+            reportSource = "./laporan/LaporanCetakBarangdenganParameter.jasper";
         }
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("kodeawal", kowal);
@@ -1600,12 +1565,9 @@ public class daftarmenuArsip extends javax.swing.JFrame {
         try {
             JasperPrint jasperPrint = JasperFillManager.fillReport(reportSource, params, kon);
             JasperViewer.viewReport(jasperPrint, false);
-//            JRSaver.saveObject(jasperPrint, null);
-//            JasperFillManager.fillReportToFile(reportSource, params,kon);
-
         } catch (JRException ex) {
             ex.printStackTrace();
-        }    // TODO add your handling code here:
+        }
     }//GEN-LAST:event_jButtonCetakFrameCetakActionPerformed
 
     private void jButtonCetakFrameKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCetakFrameKeluarActionPerformed
