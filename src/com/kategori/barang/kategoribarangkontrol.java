@@ -29,12 +29,7 @@ public class kategoribarangkontrol extends koneksi {
         this.conn = koneksi;
     }
 
-//    public static kategoribarangkontrol getKoneksiKategori() throws SQLException {
-//        kategoribarangkontrol kon = new kategoribarangkontrol(com.koneksi.koneksi.getkoneksi());
-//        return kon;
-//    }
     public static kategoribarangkontrol getKoneksiKategori() throws SQLException {
-//        kategoribarangkontrol kon = new kategoribarangkontrol(com.koneksi.koneksi.getkoneksi());
         kategoribarangkontrol kon = new kategoribarangkontrol(com.koneksi.koneksi.getkoneksi("hr", "hr", "jdbc:Oracle:thin:@localhost:1521:xe"));
         return kon;
     }
@@ -119,7 +114,7 @@ public class kategoribarangkontrol extends koneksi {
         String namaBarang = "";
         try {
             conn.setAutoCommit(true);
-            String sql = "select namakategori from kategori where kodekategori like ?";
+            String sql = "select namakategori from kategori where kodekategori="+kategori+"";
             prepare = conn.prepareStatement(sql);
             prepare.setString(1, kategori.getKode_kategori());
             result = prepare.executeQuery();
@@ -138,16 +133,15 @@ public class kategoribarangkontrol extends koneksi {
         ResultSet result = null;
         try {
             conn.setAutoCommit(false);
-            statement = conn.prepareStatement("select kodekategori,"
-                    + "namakategori "
-                    + "from kategori order by kodekategori");
+            statement = conn.prepareStatement("select kodekategori, namakategori from kategori order by kodekategori");
             result = statement.executeQuery();
             List<kategoribarang> kategoris = new ArrayList<kategoribarang>();
+            System.out.println(result);
             while (result.next()) {
-                kategoribarang kategori = new kategoribarang();
-                kategori.setKode_kategori(result.getString("kodekategori"));
-                kategori.setNama_kategori(result.getString("namakategori"));
-                kategoris.add(kategori);
+                kategoribarang kat = new kategoribarang();
+                kat.setKode_kategori(result.getString("kodekategori"));
+                kat.setNama_kategori(result.getString("namakategori"));
+                kategoris.add(kat);
             }
 
             conn.commit();

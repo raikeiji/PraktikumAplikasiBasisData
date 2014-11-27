@@ -176,7 +176,7 @@ public class KartuStockKontrol {
             if (selectedOption == JOptionPane.YES_OPTION) {
 
                 stat.execute();
-                JOptionPane.showMessageDialog(null, "DATA TELAH DIUPDATE");
+//                JOptionPane.showMessageDialog(null, "DATA TELAH DIUPDATE");
                 conn.commit();
             }
 
@@ -207,7 +207,6 @@ public class KartuStockKontrol {
             if (selectedOption == JOptionPane.YES_OPTION) {
 
                 stat.execute();
-                JOptionPane.showMessageDialog(null, "DATA ANDA TELAH TERHAPUS DI DATABASE");
                 conn.commit();
             }
 
@@ -314,17 +313,43 @@ public class KartuStockKontrol {
         }
     }
 
-//    public List<KartuStock> LihatKartuStockKosong() throws SQLException {
-//        List<KartuStock> ks = new ArrayList<KartuStock>();
-//        KartuStock k = new KartuStock();
-//        k.setTanggal("");
-//        k.setNoBukti("");
-//        k.setKeterangan("");
-//        k.setMasuk(0);
-//        k.setKeluar(0);
-//        k.setSaldo(0);
-//        ks.add(k);
-//        return ks;
+//    public List<barang> lihatSeluruhStock() throws SQLException {
+//        PreparedStatement statement = null;
+//        ResultSet result = null;
+//        try {
+//            conn.setAutoCommit(false);
+//            statement = conn.prepareStatement("select kodebarang, tanggal, nobukti, keterangan, masuk, keluar from kartustock order by tanggal");
+//            result = statement.executeQuery();
+//            List<barang> barangs = new ArrayList<barang>();
+//            while (result.next()) {
+//                barang brg = new barang();
+//                kategoribarang kategori = new kategoribarang();
+//                brg.setKodeBarang(result.getString("kodebarang"));
+//                brg.setNamaBarang(result.getString("namabarang"));
+//                brg.setKategori(kategori);
+//                kategori.setKode_kategori(result.getString("kategori"));
+//                brg.setRitelSesudah(result.getDouble("ritelsesudah"));
+//
+//                barangs.add(brg);
+//            }
+//
+//            conn.commit();
+//            return barangs;
+//        } catch (SQLException exception) {
+//            throw exception;
+//        } finally {
+//            try {
+//                conn.setAutoCommit(true);
+//                if (result != null) {
+//                    result.close();
+//                }
+//                if (statement != null) {
+//                    statement.close();
+//                }
+//            } catch (SQLException exception) {
+//                throw exception;
+//            }
+//        }
 //    }
 
 }

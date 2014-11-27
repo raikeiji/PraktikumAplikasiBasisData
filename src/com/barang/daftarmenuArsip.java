@@ -276,6 +276,7 @@ public class daftarmenuArsip extends javax.swing.JFrame {
         jDesktopPane1.add(jInternalFrameListBarang);
         jInternalFrameListBarang.setBounds(0, 70, 450, 390);
 
+        jPanel1.setBackground(new java.awt.Color(59, 142, 172));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
@@ -309,6 +310,8 @@ public class daftarmenuArsip extends javax.swing.JFrame {
 
         jDesktopPane1.add(jPanel1);
         jPanel1.setBounds(0, 0, 660, 60);
+
+        jPanel2.setBackground(new java.awt.Color(59, 142, 172));
 
         jLabel3.setText("Nama Barang");
 
@@ -494,6 +497,7 @@ public class daftarmenuArsip extends javax.swing.JFrame {
         jDesktopPane1.add(jPanel2);
         jPanel2.setBounds(0, 60, 660, 200);
 
+        jPanel3.setBackground(new java.awt.Color(59, 142, 172));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informasi Penjualan", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 2, 12))); // NOI18N
 
         jLabel11.setText("Ritel Setelah PPN");
@@ -578,6 +582,7 @@ public class daftarmenuArsip extends javax.swing.JFrame {
         jDesktopPane1.add(jPanel3);
         jPanel3.setBounds(0, 260, 660, 100);
 
+        jPanel4.setBackground(new java.awt.Color(59, 142, 172));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informasi Pembelian", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 2, 12))); // NOI18N
 
         jLabel13.setText("Beli Setelah PPN");
@@ -656,6 +661,7 @@ public class daftarmenuArsip extends javax.swing.JFrame {
         jDesktopPane1.add(jPanel4);
         jPanel4.setBounds(0, 360, 660, 110);
 
+        jPanel5.setBackground(new java.awt.Color(59, 142, 172));
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jButtonCekDaftarMenu.setText("Cetak Daftar Menu");

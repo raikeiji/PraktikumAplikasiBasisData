@@ -11,6 +11,7 @@ import com.barang.barang;
 import com.barang.daftarmenuArsip;
 import com.kategori.barang.kategoribarang;
 import java.awt.Color;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,8 +21,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JInternalFrame;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -168,8 +176,8 @@ public class FormKartuStock extends javax.swing.JFrame {
                 .addGroup(jPanelKodeBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelKodeBarangLayout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextFieldKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonLihatKodeBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelKodeBarangLayout.createSequentialGroup()
@@ -184,7 +192,7 @@ public class FormKartuStock extends javax.swing.JFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelKodeBarangLayout.setVerticalGroup(
             jPanelKodeBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +263,7 @@ public class FormKartuStock extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanelStockBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jTextFieldKeterangan, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
+                    .addComponent(jTextFieldKeterangan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelStockBarangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -360,6 +368,11 @@ public class FormKartuStock extends javax.swing.JFrame {
 
         jButtonCetak.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/kartustock/print2.png"))); // NOI18N
         jButtonCetak.setText("Cetak");
+        jButtonCetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCetakActionPerformed(evt);
+            }
+        });
 
         jButtonHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/kartustock/trash.png"))); // NOI18N
         jButtonHapus.setText("Hapus");
@@ -448,14 +461,14 @@ public class FormKartuStock extends javax.swing.JFrame {
             String namaBarang = KartuStockKontrol.getKoneksi().cariNamaBarang(kb);
             String kategori = KartuStockKontrol.getKoneksi().cariKategori(kb);
             String satuan = KartuStockKontrol.getKoneksi().cariSatuan(kb);
-            
+
             jTextFieldNamaBarang.setText(namaBarang);
             jTextFieldKategori.setText(kategori);
             jTextFieldSatuan.setText(satuan);
             if (jTextFieldNamaBarang.getText().equals("")) {
 //                jInternalFrameKodeBarang.setVisible(true);
                 JOptionPane.showMessageDialog(rootPane, "Kode barang tidak terdapat dalam database, silahkan menekan icon search");
-                
+
             }
             ListStock();
             jDateChooserCalender.setEnabled(true);
@@ -467,7 +480,7 @@ public class FormKartuStock extends javax.swing.JFrame {
             jButtonCetak.setEnabled(true);
             jButtonHapus.setEnabled(true);
             jButtonSimpan.setEnabled(true);
-            
+
         } catch (Exception ex) {
             Logger.getLogger(FormKartuStock.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -475,6 +488,23 @@ public class FormKartuStock extends javax.swing.JFrame {
 
     private void jButtonBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBatalActionPerformed
         tampilanAwal();
+//        hapusListStock();
+//        jTableKartuStock.removeAll();
+        try{
+        DefaultTableModel dtm = (DefaultTableModel) jTableKartuStock.getModel();
+//        while (dtm.getRowCount() > 0) {
+//            for (int i = dtm.getRowCount()-1; i >=0; i--) {
+//                dtm.removeRow(i);
+//            }
+//        }
+        jTableKartuStock.setEnabled(true);
+        jTableKartuStock.setCellSelectionEnabled(false);
+        dtm.setNumRows(0);
+        dtm.setRowCount(0);
+        }catch(Exception a){
+            System.out.println("masih belum terhapus data tabelnya");
+        }
+        jButtonSimpan.setText("Simpan");
     }//GEN-LAST:event_jButtonBatalActionPerformed
 
     private void jButtonKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonKeluarActionPerformed
@@ -495,36 +525,36 @@ public class FormKartuStock extends javax.swing.JFrame {
 //        jLayeredPaneKodeBarang.setVisible(true);
         FrameKodeBarang f = new FrameKodeBarang();
         f.setVisible(true);
-        
+
     }//GEN-LAST:event_jButtonLihatKodeBarangActionPerformed
 
     private void jButtonSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSimpanActionPerformed
         KartuStock ks = new KartuStock();
         barang b = new barang();
-        
+
         String kodeBarang = jTextFieldKodeBarang.getText();
         b.setKodeBarang(kodeBarang);
         ks.setKodeBarang(b);
-        
+
         Date tgl = jDateChooserCalender.getDate();
         SimpleDateFormat calender = new SimpleDateFormat("dd-MMM-yy");
         String tanggal = calender.format(tgl);
         ks.setTanggal(tanggal);
-        
+
         String noBukti = jTextFieldNoBukti.getText();
         ks.setNoBukti(noBukti);
-        
+
         String keterangan = jTextFieldKeterangan.getText();
         ks.setKeterangan(keterangan);
-        
+
         String masuk = jTextFieldMasuk.getText();
         int masukInt = Integer.parseInt(masuk);
         ks.setMasuk(masukInt);
-        
+
         String keluar = jTextFieldKeluar.getText();
         int keluarInt = Integer.parseInt(keluar);
         ks.setKeluar(keluarInt);
-        
+
         if (jButtonSimpan.getText().equals("Simpan")) {
             try {
                 KartuStockKontrol.getKoneksi().TambahKartuStock(ks);
@@ -541,7 +571,7 @@ public class FormKartuStock extends javax.swing.JFrame {
             }
         }
         ListStock();
-        
+
     }//GEN-LAST:event_jButtonSimpanActionPerformed
 
     private void jTableKartuStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableKartuStockMouseClicked
@@ -552,22 +582,22 @@ public class FormKartuStock extends javax.swing.JFrame {
         keterangan = jTableKartuStock.getValueAt(baris, 2).toString();
         masuk = jTableKartuStock.getValueAt(baris, 3).toString();
         keluar = jTableKartuStock.getValueAt(baris, 4).toString();
-        
+
         String tgl1 = tanggal.substring(0, 10);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         try {
             Date tgl2 = sdf.parse(tgl1);
-            
+
             SimpleDateFormat sdf2 = new SimpleDateFormat("dd MMM yy");
-            
+
             String tgl3 = sdf2.format(tgl2);
-            
+
             Date tgl4 = sdf2.parse(tgl3);
             jDateChooserCalender.setDate(tgl4);
         } catch (ParseException ex) {
         }
-        
+
         jTextFieldNoBukti.setText(noBukti);
         jTextFieldKeterangan.setText(keterangan);
         jTextFieldMasuk.setText(masuk);
@@ -591,21 +621,27 @@ public class FormKartuStock extends javax.swing.JFrame {
     private void jButtonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHapusActionPerformed
         java.util.Date tgl = jDateChooserCalender.getDate();
         SimpleDateFormat sdr = new SimpleDateFormat("dd-MMM-yy");
-        
-        String tanggal=sdr.format(tgl);
-        String noBukti=jTextFieldNoBukti.getText();
 
-        KartuStock k=new KartuStock();
+        String tanggal = sdr.format(tgl);
+        String noBukti = jTextFieldNoBukti.getText();
+
+        KartuStock k = new KartuStock();
         k.setTanggal(tanggal);
         k.setNoBukti(noBukti);
         try {
             KartuStockKontrol.getKoneksi().hapusStok(k);
+            JOptionPane.showMessageDialog(rootPane, "DATA ANDA TELAH TERHAPUS DI DATABASE");
         } catch (SQLException ex) {
             Logger.getLogger(FormKartuStock.class.getName()).log(Level.SEVERE, null, ex);
         }
         ListStock();
     }//GEN-LAST:event_jButtonHapusActionPerformed
-    
+
+    private void jButtonCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCetakActionPerformed
+        FrameCetak f=new FrameCetak();
+        f.setVisible(true);
+    }//GEN-LAST:event_jButtonCetakActionPerformed
+
     public void tampilanAwal() {
         jTextFieldKodeBarang.setText("Masukkan kode barang anda");
         jTextFieldKodeBarang.setPreferredSize(jTextFieldKodeBarang.getPreferredSize());
@@ -632,7 +668,7 @@ public class FormKartuStock extends javax.swing.JFrame {
         jDateChooserCalender.setDate(null);
 //        ListStockSalah();
     }
-    
+
     private void ListStock() {
         String kodeBarang = jTextFieldKodeBarang.getText();
         try {
@@ -644,8 +680,8 @@ public class FormKartuStock extends javax.swing.JFrame {
             Logger.getLogger(FormKartuStock.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void ListStockSalah(){
+
+    private void ListStockSalah() {
         String namaBarang = jTextFieldNamaBarang.getText();
         try {
             List<KartuStock> daftarStock = KartuStockKontrol.getKoneksi().LihatKartuStock(namaBarang);
@@ -656,16 +692,6 @@ public class FormKartuStock extends javax.swing.JFrame {
             Logger.getLogger(FormKartuStock.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-//String key = jTextFieldJInternalFrame.getText();
-//        try {
-//            List<barang> listKategori = BarangKontrol.getKoneksi().CaridariLIST(key);
-//            TabelModelBarang model = new TabelModelBarang(listKategori);
-//            model.fireTableDataChanged();
-//            jTableJInternalFrame.setModel(model);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(daftarmenuArsip.class.getName()).log(Level.SEVERE, null, ex);
-//        }
 
     /**
      * @param args the command line arguments

@@ -17,6 +17,10 @@ import javax.swing.table.AbstractTableModel;
 public class KartuStockTableModel extends AbstractTableModel{
     public List<KartuStock> kart = new ArrayList<KartuStock>();
 
+    public KartuStockTableModel() {
+    }
+
+    
     public KartuStockTableModel(List<KartuStock> kartu) {
         this.kart = kartu;
     }
@@ -26,6 +30,7 @@ public class KartuStockTableModel extends AbstractTableModel{
         return kart.size();
     }
 
+    
     @Override
     public int getColumnCount() {
         return 6;
