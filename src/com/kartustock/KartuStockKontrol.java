@@ -7,14 +7,28 @@ package com.kartustock;
 
 import com.barang.barang;
 import com.kategori.barang.kategoribarang;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -190,6 +204,27 @@ public class KartuStockKontrol {
 
     }
 
+    public static void cetakStock(JTable table) {
+        try {
+            String path="./laporan/kartu_stok.jrxml";
+            if (!new File(path).exists()) {
+                System.out.println("tidak ada");
+            } else
+            {
+                System.out.println("ada");
+            }
+            Map<String,Object> param=new HashMap<String, Object>();
+//        JasperPrint jp=JasperFillManager.fillReport(path, param , new JRTableModelDataSource(table.getModel()));
+//        JasperViewer.viewReport(jp, false);
+            JasperReport jasperReport=JasperCompileManager.compileReport(path);
+            JasperPrint jasperPrint=JasperFillManager.fillReport(jasperReport, param,new JRTableModelDataSource(table.getModel()));
+            JasperViewer.viewReport(jasperPrint,false);
+        } catch (JRException ex) {
+            Logger.getLogger(KartuStockKontrol.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
     public void hapusStok(KartuStock kart) throws SQLException {
 
         String Tanggal = kart.getTanggal();

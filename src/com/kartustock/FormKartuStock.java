@@ -638,8 +638,7 @@ public class FormKartuStock extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonHapusActionPerformed
 
     private void jButtonCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCetakActionPerformed
-        FrameCetak f=new FrameCetak();
-        f.setVisible(true);
+        KartuStockKontrol.cetakStock(jTableKartuStock);
     }//GEN-LAST:event_jButtonCetakActionPerformed
 
     public void tampilanAwal() {
